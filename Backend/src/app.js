@@ -4,6 +4,7 @@ import routes from "./routes/index.js";
 import dotenv from "dotenv";
 import fileUpload from "express-fileupload";
 import path from "path";
+import './cron/cleanUpRejectedSession.js';
 import { fileURLToPath } from "url"; // supaya __dirname bisa dipakai di ES Module
 
 dotenv.config();

@@ -5,5 +5,6 @@ export const authRepository = {
         return await prisma.user.findUnique({ where: { email } });
     },
     createUser : async (data) => { return await prisma.user.create({data}) },
+    findById: async (id) => { return await prisma.user.findUnique({ where: { id } }); },
 };
 

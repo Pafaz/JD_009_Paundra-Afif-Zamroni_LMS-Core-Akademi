@@ -20,8 +20,8 @@ model User {
   password          String
   role              Role
   classes           Class[]    @relation("StudentClasses")
-  bookingsAsStudent Booking[]  @relation("StudentBookings")
-  bookingsAsMentor  Booking[]  @relation("MentorBookings")
+  sessionStudent    Session[]  @relation("StudentBookings")
+  sessionMentor     Session[]  @relation("MentorBookings")
   feedbacks         Feedback[]
 }
 
@@ -43,21 +43,28 @@ model Material {
   class   Class        @relation(fields: [classId], references: [id])
 }
 
-model Booking {
-  id        Int      @id @default(autoincrement())
+model Session {
+  id        Int           @id @default(autoincrement())
   date      DateTime
-  link      String
+  link      String?
+  status    StatusBooking
+  method    BookingMethod
+  deletedAt DateTime?
   mentorId  Int
   studentId Int
-  mentor    User     @relation("MentorBookings", fields: [mentorId], references: [id])
-  student   User     @relation("StudentBookings", fields: [studentId], references: [id])
+  mentor    User          @relation("MentorBookings", fields: [mentorId], references: [id])
+  student   User          @relation("StudentBookings", fields: [studentId], references: [id])
+  feedbacks Feedback[]
 }
 
 model Feedback {
-  id      Int    @id @default(autoincrement())
-  content String
-  userId  Int
-  user    User   @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  content   String
+  sessionId Int
+  session   Session  @relation(fields: [sessionId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
 }
 
 model Quiz {
@@ -94,4 +101,15 @@ enum MaterialType {
   PDF
   PPT
   VIDEO
+}
+
+enum StatusBooking {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum BookingMethod {
+  ONLINE
+  OFFLINE
 }
