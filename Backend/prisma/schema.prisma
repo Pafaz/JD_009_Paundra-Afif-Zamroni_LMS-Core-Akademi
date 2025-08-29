@@ -1,0 +1,97 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                Int        @id @default(autoincrement())
+  name              String
+  email             String     @unique
+  password          String
+  role              Role
+  classes           Class[]    @relation("StudentClasses")
+  bookingsAsStudent Booking[]  @relation("StudentBookings")
+  bookingsAsMentor  Booking[]  @relation("MentorBookings")
+  feedbacks         Feedback[]
+}
+
+model Class {
+  id        Int        @id @default(autoincrement())
+  name      String
+  code      String     @unique
+  students  User[]     @relation("StudentClasses")
+  materials Material[]
+  Quiz      Quiz[]
+}
+
+model Material {
+  id      Int          @id @default(autoincrement())
+  title   String
+  type    MaterialType
+  url     String
+  classId Int
+  class   Class        @relation(fields: [classId], references: [id])
+}
+
+model Booking {
+  id        Int      @id @default(autoincrement())
+  date      DateTime
+  link      String
+  mentorId  Int
+  studentId Int
+  mentor    User     @relation("MentorBookings", fields: [mentorId], references: [id])
+  student   User     @relation("StudentBookings", fields: [studentId], references: [id])
+}
+
+model Feedback {
+  id      Int    @id @default(autoincrement())
+  content String
+  userId  Int
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+model Quiz {
+  id        Int        @id @default(autoincrement())
+  title     String
+  classId   Int
+  class     Class      @relation(fields: [classId], references: [id])
+  questions Question[]
+}
+
+model Question {
+  id       Int      @id @default(autoincrement())
+  text     String
+  options  Option[]
+  answerId Int?
+  quizId   Int
+  quiz     Quiz     @relation(fields: [quizId], references: [id])
+}
+
+model Option {
+  id         Int      @id @default(autoincrement())
+  text       String
+  questionId Int
+  question   Question @relation(fields: [questionId], references: [id])
+}
+
+enum Role {
+  STUDENT
+  MENTOR
+  ADMIN
+}
+
+enum MaterialType {
+  PDF
+  PPT
+  VIDEO
+}
