@@ -7,7 +7,7 @@ export const materialRepository = {
                 title: data.title,
                 type: data.type,  
                 url: data.url,     
-                classId: data.classId,
+                courseId: data.courseId,
             },
         });
     },
@@ -15,7 +15,7 @@ export const materialRepository = {
     findAll: async () => {
         return await prisma.material.findMany({
             include: {
-                class: true,
+                course: true,
             },
         });
     },
@@ -24,7 +24,7 @@ export const materialRepository = {
         return await prisma.material.findUnique({
             where: { id: Number(id) },
             include: {
-                class: true,
+                course: true,
             },
         });
     },
@@ -36,7 +36,7 @@ export const materialRepository = {
                 title: data.title,
                 type: data.type,
                 url: data.url,
-                classId: data.classId,
+                courseId: data.courseId,
             },
         });
     },

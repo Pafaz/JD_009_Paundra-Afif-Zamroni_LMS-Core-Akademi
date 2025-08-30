@@ -25,7 +25,7 @@ export const materialService = {
             title: data.title,
             type: data.type.toUpperCase(),
             url: `/public/materials/${fileName}`,
-            classId: parseInt(data.classId),
+            courseId: data.courseId,
         });
     },
 
@@ -46,7 +46,7 @@ export const materialService = {
         let updateData = {
             title: data.title,
             type: data.type.toUpperCase(),
-            classId: parseInt(data.classId),
+            courseId: data.courseId,
         };
 
         if (file) {

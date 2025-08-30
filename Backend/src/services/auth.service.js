@@ -3,7 +3,7 @@ import { generateToken } from "../utils/jwt.js";
 import { hashPassword, comparePassword } from "../utils/hash.js";
 
 
-export const registerUser = async ({ name, email, password }) => {
+export const registerUser = async ({ name, email, password, role }) => {
     const existing = await authRepository.findUserByEmail(email);
     if (existing) {
         throw new Error("Email already used");
@@ -15,7 +15,7 @@ export const registerUser = async ({ name, email, password }) => {
         name,
         email,
         password: hashed,
-        role: "STUDENT", 
+        role, 
     });
 
     return { id: user.id, email: user.email, name: user.name, role: user.role };

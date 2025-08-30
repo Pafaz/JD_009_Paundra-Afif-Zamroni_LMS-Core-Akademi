@@ -3,11 +3,11 @@ import { materialService } from "../services/material.service.js";
 export const materialController = {
     upload: async (req, res) => {
         try {
-            const { title, type, classId } = req.body;
+            const { title, type, courseId } = req.body;
             const file = req.files?.file;
 
             const material = await materialService.uploadMaterial(
-                { title, type, classId },
+                { title, type, courseId },
                 file
             );
 
@@ -42,12 +42,12 @@ export const materialController = {
     update: async (req, res) => {
         try {
             const { id } = req.params;
-            const { title, type, classId } = req.body;
+            const { title, type, courseId } = req.body;
             const file = req.files?.file;
 
             const updatedMaterial = await materialService.update(
                 id,
-                { title, type, classId },
+                { title, type, courseId },
                 file
             );
 

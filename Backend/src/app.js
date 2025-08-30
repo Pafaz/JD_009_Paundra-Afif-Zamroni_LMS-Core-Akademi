@@ -2,10 +2,11 @@ import express from "express";
 import bodyParser from "body-parser";
 import routes from "./routes/index.js";
 import dotenv from "dotenv";
+import cors from "cors";
 import fileUpload from "express-fileupload";
 import path from "path";
 import './cron/cleanUpRejectedSession.js';
-import { fileURLToPath } from "url"; // supaya __dirname bisa dipakai di ES Module
+import { fileURLToPath } from "url"; 
 
 dotenv.config();
 
@@ -32,6 +33,12 @@ app.use(
 
 // Static folder biar bisa akses file hasil upload langsung via URL
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+}));
 
 // Routes (hubungkan ke controller via routes/index.js)
 app.use("/api", routes);

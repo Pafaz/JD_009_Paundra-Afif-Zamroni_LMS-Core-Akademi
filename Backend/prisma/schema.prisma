@@ -14,81 +14,61 @@ datasource db {
 }
 
 model User {
-  id                Int        @id @default(autoincrement())
-  name              String
-  email             String     @unique
-  password          String
-  role              Role
-  classes           Class[]    @relation("StudentClasses")
-  sessionStudent    Session[]  @relation("StudentBookings")
-  sessionMentor     Session[]  @relation("MentorBookings")
-  feedbacks         Feedback[]
+  id             String      @id @default(uuid())
+  name           String
+  email          String      @unique
+  password       String
+  role           Role
+  courses        Course[]    @relation("StudentCourses")
+  sessionStudent Session[]   @relation("StudentBookings")
+  sessionMentor  Session[]   @relation("MentorBookings")
+  feedbacks      Feedback[]
 }
 
-model Class {
-  id        Int        @id @default(autoincrement())
-  name      String
-  code      String     @unique
-  students  User[]     @relation("StudentClasses")
-  materials Material[]
-  Quiz      Quiz[]
+model Course {
+  id            String      @id @default(uuid())
+  title          String
+  code          String      @unique
+  price         Float
+  image         String
+  difficulty    Difficulty
+  description   String
+  durationWeeks Int
+  students      User[]      @relation("StudentCourses")
+  materials     Material[]
 }
 
 model Material {
-  id      Int          @id @default(autoincrement())
-  title   String
-  type    MaterialType
-  url     String
-  classId Int
-  class   Class        @relation(fields: [classId], references: [id])
+  id       String       @id @default(uuid())
+  title    String
+  type     MaterialType
+  url      String
+  courseId String
+  course   Course       @relation(fields: [courseId], references: [id])
 }
 
 model Session {
-  id        Int           @id @default(autoincrement())
+  id        String        @id @default(uuid())
   date      DateTime
   link      String?
   status    StatusBooking
   method    BookingMethod
   deletedAt DateTime?
-  mentorId  Int
-  studentId Int
+  mentorId  String
+  studentId String
   mentor    User          @relation("MentorBookings", fields: [mentorId], references: [id])
   student   User          @relation("StudentBookings", fields: [studentId], references: [id])
   feedbacks Feedback[]
 }
 
 model Feedback {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   content   String
-  sessionId Int
+  sessionId String
   session   Session  @relation(fields: [sessionId], references: [id])
-  userId    Int
+  userId    String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
-}
-
-model Quiz {
-  id        Int        @id @default(autoincrement())
-  title     String
-  classId   Int
-  class     Class      @relation(fields: [classId], references: [id])
-  questions Question[]
-}
-
-model Question {
-  id       Int      @id @default(autoincrement())
-  text     String
-  options  Option[]
-  answerId Int?
-  quizId   Int
-  quiz     Quiz     @relation(fields: [quizId], references: [id])
-}
-
-model Option {
-  id         Int      @id @default(autoincrement())
-  text       String
-  questionId Int
-  question   Question @relation(fields: [questionId], references: [id])
 }
 
 enum Role {
@@ -112,4 +92,10 @@ enum StatusBooking {
 enum BookingMethod {
   ONLINE
   OFFLINE
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
 }
