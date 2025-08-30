@@ -8,15 +8,15 @@ Aplikasi ini dibangun dengan **Next.js (frontend)** dan **Express.js + Prisma + 
 ## 🚀 Tech Stack  
 
 ### **Backend**  
-- [Express.js](https://expressjs.com/) – REST API  
-- [Prisma](https://www.prisma.io/) – ORM untuk PostgreSQL  
-- [PostgreSQL](https://www.postgresql.org/) – Database  
-- JWT-based authentication & role-based authorization  
+- ![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express&logoColor=white) – REST API  
+- ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white) – ORM untuk PostgreSQL  
+- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white) – Database  
+- ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white) – Authentication & role-based authorization  
 
 ### **Frontend**  
-- [Next.js](https://nextjs.org/) – React Framework  
-- [TypeScript](https://www.typescriptlang.org/) – Type Safety  
-- [Tailwind CSS](https://tailwindcss.com/) – Styling  
+- ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white) – React Framework  
+- ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white) – Type Safety  
+- ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white) – Styling
 
 ---
 
