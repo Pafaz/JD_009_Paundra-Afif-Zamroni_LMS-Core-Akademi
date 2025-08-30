@@ -30,7 +30,7 @@ Aplikasi ini dibangun dengan **Next.js (frontend)** dan **Express.js + Prisma + 
 /routes         → Routing API
 /middleware     → Middleware (authMiddleware, requireRole)
 /prisma         → Prisma schema & migration
-/cron           → Cron jobs (misalnya auto-expire session, reminder, dll.)
+/cron           → Cron jobs (auto delete session > 7 hari)
 /public         → File statis (jika dibutuhkan untuk akses publik)
 /utils          → Helper function (formatter, error handler, dll.)
 /validations    → Validasi request (misalnya pakai Joi/Zod/Yup)
@@ -41,8 +41,7 @@ Aplikasi ini dibangun dengan **Next.js (frontend)** dan **Express.js + Prisma + 
 ```
 /pages          → Halaman Next.js
 /components     → UI Components
-/services       → API fetcher
-/utils          → Helper (formatter, validation, dll.)
+/lib            → API fetcher
 ```
 
 ---
@@ -78,7 +77,7 @@ Aplikasi ini dibangun dengan **Next.js (frontend)** dan **Express.js + Prisma + 
 
 ### 1. Clone Repository  
 ```bash
-git clone https://github.com/username/lms-core-akademi.git
+git clone https://github.com/Pafaz/JD_009_Paundra-Afif-Zamroni_LMS-Core-Akademi.git
 cd lms-core-akademi
 ```
 
@@ -157,8 +156,3 @@ PORT=5000
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000
 ```
-
----
-
-## 📜 License  
-MIT License © 2025 Core Akademi  
